@@ -2,6 +2,8 @@
 
 body {
   margin: 0;
+  height: 100dvh;
+  overflow: hidden;
   background-color: #f1edc2;
   font-family: "Hind Mysuru", sans-serif;
 }
