@@ -19,17 +19,15 @@ class SpotifyAuthentication {
 			}
 		);
 		this.accessToken = JSON.parse(localStorage.getItem('spotify_access_token'));
-		await this.reconnect();
+		await this.connect();
 	}
 
-	async reconnect () {
+	async connect () {
 		const token = JSON.parse(localStorage.getItem('spotify_access_token'));
 		this.sdk = SpotifyApi.withAccessToken(
 			import.meta.env.VITE_SPOTIFY_CLIENT_ID,
 			token
 		);
-		console.log(await this.sdk.currentUser.profile());
-		console.log(await this.sdk.search('eminem', 'track'));
 	}
 
 	getAccessToken() {
