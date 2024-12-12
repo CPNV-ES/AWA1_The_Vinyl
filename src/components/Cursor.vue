@@ -7,8 +7,8 @@
     inset: 0;
     position: absolute;
     translate: -50% -50%;
-    width: 1rem;
-    height: 1rem;
+    width: 0.65rem;
+    height: 0.65rem;
     background-color: white;
     border-radius: 50%;
     pointer-events: none;
