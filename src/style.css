@@ -16,6 +16,14 @@ body,
   align-items: center;
 }
 
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
 .button-spotify {
   border-radius: 300px;
   color: #1db954;
