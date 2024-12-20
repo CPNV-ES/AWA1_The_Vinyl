@@ -1,6 +1,17 @@
+<script setup>
+import SpotifyAuthentication from "../services/SpotifyAuthentication.js";
+
+const spotifyCredentials = new SpotifyAuthentication();
+
+if (spotifyCredentials.isLogged()) {
+  window.location.href = "/";
+}
+
+</script>
+
 <template>
     <h1>The Vinyl</h1>
-    <button name="login" class="button-spotify"><b>Login to Spotify</b></button>
+    <button name="login" @click="spotifyCredentials.authenticate()" class="button-spotify"><b>Login to Spotify</b></button>
 </template>
 
 <style>
@@ -18,8 +29,3 @@ h1 {
     height: 3rem;
 }
 </style>
-
-
-<script>
-export default { name: 'Login' };
-</script>
