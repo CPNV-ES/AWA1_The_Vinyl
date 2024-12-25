@@ -17,16 +17,16 @@ const player = new VinylPlayer();
         </div>
         <div id="player-face" class="bg-orange-950 h-[10dvh] w-[50dvh] flex justify-evenly items-center origin-top transform -rotate-x-30">
             <VinylPlayerButton :pressed="pressedBackward" @onPress:pressed="pressedBackward = $event" @click="player.previous()">
-                <BackwardIcon class="h-6 w-6 text-neutral-300" />
+                <BackwardIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
             </VinylPlayerButton>
             <VinylPlayerButton :pressed="!player.isPlaying" @click="player.pause()">
-                <PauseIcon class="h-6 w-6 text-neutral-300" />
+                <PauseIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
             </VinylPlayerButton>
             <VinylPlayerButton :pressed="player.isPlaying" @click="player.play()">
-                <PlayIcon class="h-6 w-6 text-neutral-300" />
+                <PlayIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
             </VinylPlayerButton>
             <VinylPlayerButton :pressed="pressedForward" @onPress:pressed="pressedForward = $event" @click="player.next()">
-                <ForwardIcon class="h-6 w-6 text-neutral-300" />
+                <ForwardIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
             </VinylPlayerButton>
         </div>
     </div>
