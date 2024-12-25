@@ -1,30 +1,31 @@
 <script setup>
+import { VinylPlayer } from '../../lib/VinylPlayer';
 import { ref } from 'vue';
-import { ForwardIcon, BackwardIcon, PlayIcon, PauseIcon } from '@heroicons/vue/24/solid';
 import VinylPlayerButton from './VinylPlayerButton.vue';
 import Vinyl from './Vinyl.vue';
+import { ForwardIcon, BackwardIcon, PlayIcon, PauseIcon } from '@heroicons/vue/24/solid';
 
 const pressedBackward = ref(false);
 const pressedForward = ref(false);
-const isPlaying = ref(false);
+const player = new VinylPlayer();
 </script>
 
 <template>
     <div id="player" class="perspective-1000">
         <div id="player-top" class="bg-orange-900 h-[50dvh] w-[50dvh] flex justify-center items-center origin-bottom transform rotate-x-60 overflow-hidden">
-            <Vinyl :isPlaying/>
+            <Vinyl :isPlaying="player.isPlaying" />
         </div>
         <div id="player-face" class="bg-orange-950 h-[10dvh] w-[50dvh] flex justify-evenly items-center origin-top transform -rotate-x-30">
-            <VinylPlayerButton content="backward" :pressed="pressedBackward" @onPress:pressed="pressedBackward = $event">
+            <VinylPlayerButton :pressed="pressedBackward" @onPress:pressed="pressedBackward = $event" @click="player.previous()">
                 <BackwardIcon class="h-6 w-6 text-neutral-300" />
             </VinylPlayerButton>
-            <VinylPlayerButton content="pause" :pressed="!isPlaying" @click="isPlaying = !isPlaying? isPlaying: !isPlaying">
+            <VinylPlayerButton :pressed="!player.isPlaying" @click="player.pause()">
                 <PauseIcon class="h-6 w-6 text-neutral-300" />
             </VinylPlayerButton>
-            <VinylPlayerButton content="play" :pressed="isPlaying" @click="isPlaying = isPlaying? isPlaying: !isPlaying">
+            <VinylPlayerButton :pressed="player.isPlaying" @click="player.play()">
                 <PlayIcon class="h-6 w-6 text-neutral-300" />
             </VinylPlayerButton>
-            <VinylPlayerButton content="forward" :pressed="pressedForward" @onPress:pressed="pressedForward = $event">
+            <VinylPlayerButton :pressed="pressedForward" @onPress:pressed="pressedForward = $event" @click="player.next()">
                 <ForwardIcon class="h-6 w-6 text-neutral-300" />
             </VinylPlayerButton>
         </div>
