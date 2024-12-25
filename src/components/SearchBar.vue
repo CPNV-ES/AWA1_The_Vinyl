@@ -14,7 +14,7 @@ import mockedSongs from '../../public/mocks/songs.json';
             type="text" placeholder="Search for a song" v-model="searchQuery" @input="search"/>
         <MagnifyingGlassIcon class="h-6 w-6 text-neutral-500 absolute right-2" />
         <div :class="['absolute z-20 shadow-lg top-10 w-full bg-neutral-800 rounded-lg text-white text-center overflow-hidden' , searchQuery.length > 0 ? 'block' : 'hidden']">
-            <SongBanner v-for="song in songs" :key="song.id" :song="song" @click="console.log(song), searchQuery=''"/>
+            <SongBanner v-for="song in songs" :key="song.id" :song="song" @click="$emit('onPick:song', song), searchQuery=''"/>
         </div>
     </div>
 </template>

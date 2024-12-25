@@ -3,6 +3,7 @@ import { ref } from 'vue';
 export class VinylPlayer {
     constructor() {
         this._isPlaying = ref(false);
+        this.queue = ref([]);
     }
 
     get isPlaying() {
@@ -35,5 +36,9 @@ export class VinylPlayer {
     // Goes back to the previous track
     previous() {
         console.log('previous');
+    }
+
+    addToQueue(song) {
+        this.queue.value.push(song);
     }
 }

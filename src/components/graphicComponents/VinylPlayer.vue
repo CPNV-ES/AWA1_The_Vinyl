@@ -1,5 +1,4 @@
 <script setup>
-import { VinylPlayer } from '../../lib/VinylPlayer';
 import { ref } from 'vue';
 import VinylPlayerButton from './VinylPlayerButton.vue';
 import Vinyl from './Vinyl.vue';
@@ -7,7 +6,6 @@ import { ForwardIcon, BackwardIcon, PlayIcon, PauseIcon } from '@heroicons/vue/2
 
 const pressedBackward = ref(false);
 const pressedForward = ref(false);
-const player = new VinylPlayer();
 </script>
 
 <template>
@@ -31,3 +29,15 @@ const player = new VinylPlayer();
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'VinylPlayer',
+    props: {
+        player: {
+            type: Object,
+            required: true
+        }
+    }
+};
+</script>
