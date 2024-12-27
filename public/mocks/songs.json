@@ -5,13 +5,28 @@
         "cover": "https://static.fnac-static.com/multimedia/Images/FR/NR/99/1e/d4/13901465/1540-1.jpg"
     },
     { 
-        "title": "Va au diable!!",
-        "artist": "menace santana",
-        "cover": "https://static.fnac-static.com/multimedia/Images/FR/NR/99/1e/d4/13901465/1540-1.jpg"
+        "title": "Bliding lights",
+        "artist": "The weeknd",
+        "cover": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36"
     },
-    { 
-        "title": "3e rêve!",
-        "artist": "menace santana",
-        "cover": "https://static.fnac-static.com/multimedia/Images/FR/NR/99/1e/d4/13901465/1540-1.jpg"
+    {
+        "title": "Djadja",
+        "artist": "Aya Nakamura",
+        "cover": "https://static.fnac-static.com/multimedia/Images/FR/NR/bf/c7/a0/10536895/1507-1/tsp20181009141310/Album-2018.jpg"
+    },
+    {
+        "title": "Mwaka Moon",
+        "artist": "Kalash",
+        "cover": "https://i.scdn.co/image/ab67616d00001e029bd844f96a6d1fcc802f9981"
+    },
+    {
+        "title": "La Bohème",
+        "artist": "Charles Aznavour",
+        "cover": "https://i.scdn.co/image/ab67616d0000b273d2ad600632db1bf5947cd890"
+    },
+    {
+        "title": "Billie Jean",
+        "artist": "Michael Jackson",
+        "cover": "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97"
     }
 ]
