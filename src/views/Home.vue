@@ -13,10 +13,12 @@ const player = new VP();
         <button name="logout" class="button-spotify px-3 py-1"><b>Logout</b></button>
     </nav>
     <div class="grow flex flex-col lg:flex-row">
-        <section class="flex justify-center items-center h-full w-[50dvw]">
+        <section class="flex justify-center items-center h-full w-[50dvw] px-[5dvh] relative">
+            <h1 class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">Current songs</h1>
             <VinylPlayer :player="player" />
         </section>
-        <section class="flex justify-center items-center h-full w-[50dvw]">
+        <section class="flex items-center h-full w-[50dvw] px-[5dvh] relative">
+            <h1 class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">Next songs</h1>
             <VinylCoverQueue :queue="player.queue.value" />
         </section>
     </div>
