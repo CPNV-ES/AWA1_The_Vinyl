@@ -1,9 +1,8 @@
 <script setup>
 import VinylPlayer from '../components/graphicComponents/VinylPlayer.vue';
 import SearchBar from '../components/SearchBar.vue';
-import VinylCover from '../components/graphicComponents/VinylCover.vue';
+import VinylCoverQueue from '../components/graphicComponents/VinylCoverQueue.vue';
 import { VinylPlayer as VP } from '../lib/VinylPlayer';
-import { Song } from '../lib/Song';
 
 const player = new VP();
 </script>
@@ -18,7 +17,7 @@ const player = new VP();
             <VinylPlayer :player="player" />
         </section>
         <section class="flex justify-center items-center h-full w-[50dvw]">
-            <VinylCover v-for="song in player.queue.value" :key="song.id" :song="song" />
+            <VinylCoverQueue :queue="player.queue.value" />
         </section>
     </div>
 </template>
