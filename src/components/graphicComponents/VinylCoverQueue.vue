@@ -21,8 +21,9 @@ import Vinyl from './Vinyl.vue';
     <div class="flex h-full justify-center flex-grow perspective-1000">
         <div class="flex w-full items-center h-full gap-1 mx-[5dvh]">
             <VinylCover @mouseover="preview.value = song" v-for="(song, index) in visibleCovers" :key="song.id"
-                :zIndex="index > visibleCoverCount / 2 ? -index : index" :song="song" :isPreviewed="preview.value === song"
-                :translucent="visibleCoverStartIndex > 0 && index == 0 || index == visibleCoverCount -1 && visibleCoverStartIndex < queue.length - visibleCoverCount" />
+                :zIndex="index > visibleCoverCount / 2 ? -index : index" :song="song"
+                :isPreviewed="preview.value === song"
+                :translucent="visibleCoverStartIndex > 0 && index == 0 || index == visibleCoverCount - 1 && visibleCoverStartIndex < queue.length - visibleCoverCount" />
         </div>
     </div>
 </template>
@@ -45,6 +46,30 @@ export default {
                 return this.queue.slice(this.visibleCoverStartIndex, this.visibleCoverStartIndex + this.visibleCoverCount);
             })
         };
+    },
+    methods: {
+        moveCoversRight() {
+            console.log("Right");
+            if (this.visibleCoverStartIndex + this.visibleCoverCount < this.queue.length) {
+                this.visibleCoverStartIndex++;
+            }
+        },
+        moveCoversLeft() {
+            console.log("left");
+            if (this.visibleCoverStartIndex > 0) {
+                this.visibleCoverStartIndex--;
+            }
+        }
+    },
+    mounted() {
+        window.addEventListener('wheel', (event) => {
+            console.log("scroll")
+            if (event.deltaY > 0) {
+                this.moveCoversRight();
+            } else {
+                this.moveCoversLeft();
+            }
+        });
     }
 };
 </script>
