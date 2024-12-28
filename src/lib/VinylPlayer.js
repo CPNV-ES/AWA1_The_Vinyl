@@ -1,8 +1,10 @@
 import { ref } from 'vue';
+import { Song } from './Song';
 // TODO: Implement the API calls in the methods
 export class VinylPlayer {
     constructor() {
         this._isPlaying = ref(false);
+        this._currentSong = ref(null);
         this.queue = ref([]);
     }
 
@@ -12,6 +14,14 @@ export class VinylPlayer {
 
     set isPlaying(value) {
         this._isPlaying.value = value;
+    }
+
+    get currentSong() {
+        return this._currentSong.value;
+    }
+
+    set currentSong(value) {
+        this._currentSong.value = value;
     }
 
     // Launches the reading of the musics

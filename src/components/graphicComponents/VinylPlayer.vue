@@ -11,7 +11,7 @@ const pressedForward = ref(false);
 <template>
     <div id="player" class="perspective-1000">
         <div id="player-top" class="transform-style-flat bg-orange-900 h-[50dvh] w-[50dvh] flex justify-center items-center origin-bottom transform rotate-x-60 overflow-hidden">
-            <Vinyl :isPlaying="player.isPlaying" />
+            <Vinyl v-if="player.currentSong" :isPlaying="player.isPlaying" :cover="player.currentSong.cover" />
         </div>
         <div id="player-face" class="transform-style-flat bg-orange-950 h-[10dvh] w-[50dvh] flex justify-evenly items-center origin-top transform -rotate-x-30">
             <VinylPlayerButton :pressed="pressedBackward" @onPress:pressed="pressedBackward = $event" @click="player.previous()">
