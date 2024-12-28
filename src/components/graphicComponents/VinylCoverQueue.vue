@@ -49,13 +49,11 @@ export default {
     },
     methods: {
         moveCoversRight() {
-            console.log("Right");
             if (this.visibleCoverStartIndex + this.visibleCoverCount < this.queue.length) {
                 this.visibleCoverStartIndex++;
             }
         },
         moveCoversLeft() {
-            console.log("left");
             if (this.visibleCoverStartIndex > 0) {
                 this.visibleCoverStartIndex--;
             }
@@ -63,7 +61,6 @@ export default {
     },
     mounted() {
         window.addEventListener('wheel', (event) => {
-            console.log("scroll")
             if (event.deltaY > 0) {
                 this.moveCoversRight();
             } else {
