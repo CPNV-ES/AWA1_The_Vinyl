@@ -7,12 +7,12 @@ import SongPreview from '../SongPreview.vue';
 <template>
     <div class="flex flex-col w-full h-full relative ">
         <div class="h-[15dvh] w-[15dvh] absolute top-20 left-[5dvh]">
-            <SongPreview :preview="preview" />
+            <SongPreview :preview />
         </div>
         <div class="flex h-full items-center flex-grow gap-1 transform pt-[15dvh] pl-[5dvh]">
-            <VinylCover @mouseover="preview.value = song" v-for="(song, index) in visibleCovers" :key="song.id"
+            <VinylCover @mouseover="preview = song" v-for="(song, index) in visibleCovers" :key="song.id"
                 :zIndex="index > visibleCoverCount / 2 ? -index : index" :song="song"
-                :isPreviewed="preview.value === song"
+                :isPreviewed="preview === song"
                 :translucent="visibleCoverStartIndex > 0 && index == 0 || index == visibleCoverCount - 1 && visibleCoverStartIndex < queue.length - visibleCoverCount" />
         </div>
     </div>
@@ -29,7 +29,7 @@ export default {
     },
     data() {
         return {
-            preview: ref({}),
+            preview: ref(null),
             visibleCoverCount: 15,
             visibleCoverStartIndex: ref(0),
             visibleCovers: computed(() => {
