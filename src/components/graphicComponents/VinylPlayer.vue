@@ -9,7 +9,7 @@ const pressedForward = ref(false);
 </script>
 
 <template>
-    <div id="player" class="perspective-1000">
+    <div id="player" class="">
         <div id="player-top" class="transform-style-flat bg-orange-900 h-[50dvh] w-[50dvh] flex justify-center items-center origin-bottom transform rotate-x-60 overflow-hidden">
             <Vinyl v-if="player.currentSong" :isPlaying="player.isPlaying" :cover="player.currentSong.cover" />
         </div>

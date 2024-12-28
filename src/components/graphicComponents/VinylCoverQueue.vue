@@ -18,7 +18,7 @@ import Vinyl from './Vinyl.vue';
             <span v-if="preview.value" class="font-semibold text-neutral-700 text-xs">{{ preview.value.artist }}</span>
         </p>
     </div>
-    <div class="flex h-full justify-center flex-grow perspective-1000">
+    <div class="flex h-full justify-center flex-grow">
         <div class="flex w-full items-center h-full gap-1 mx-[5dvh]">
             <VinylCover @mouseover="preview.value = song" v-for="(song, index) in visibleCovers" :key="song.id"
                 :zIndex="index > visibleCoverCount / 2 ? -index : index" :song="song"

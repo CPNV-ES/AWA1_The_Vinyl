@@ -12,7 +12,7 @@ const player = new VP();
         <SearchBar @onPick:song="player.addToQueue($event)" />
         <button name="logout" class="button-spotify px-3 py-1"><b>Logout</b></button>
     </nav>
-    <div class="grow flex flex-col lg:flex-row">
+    <div class="grow flex flex-col lg:flex-row perspective-1600">
         <section class="flex justify-center items-center h-full w-[50dvw] px-[5dvh] relative">
             <h1 class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">Current songs</h1>
             <VinylPlayer :player="player" />
