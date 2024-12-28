@@ -1,24 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
 import VinylCover from './VinylCover.vue';
-import Vinyl from './Vinyl.vue';
+import SongPreview from '../SongPreview.vue';
 </script>
 
 <template>
     <div class="flex flex-col w-full h-full relative ">
-        <div class="absolute top-14 left-[5dvh] flex gap-3">
-            <div class="h-[15dvh] w-[15dvh] aspect-square">
-                <img v-if="preview.value" :src="preview.value.cover" alt=""
-                    class="inset-0 h-[15dvh] w-[15dvh] object-center object-cover" />
-                <div v-if="preview.value"
-                    class="h-full w-full absolute -z-50 top-0 -translate-x-1/2 flex justify-center items-center">
-                    <Vinyl :cover="preview.value.cover" />
-                </div>
-            </div>
-            <p class="flex flex-col">
-                <span v-if="preview.value" class="font-bold text-2xl">{{ preview.value.title }}</span>
-                <span v-if="preview.value" class="font-semibold text-neutral-700">{{ preview.value.artist }}</span>
-            </p>
+        <div class="h-[15dvh] w-[15dvh] absolute top-20 left-[5dvh]">
+            <SongPreview :preview="preview" />
         </div>
         <div class="flex h-full items-center flex-grow gap-1 transform pt-[15dvh] pl-[5dvh]">
             <VinylCover @mouseover="preview.value = song" v-for="(song, index) in visibleCovers" :key="song.id"
