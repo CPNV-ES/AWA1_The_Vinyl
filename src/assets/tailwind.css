@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    @apply transform-style-3d;
+}
+
 body {
     @apply m-0 overflow-hidden bg-[#f1edc2] font-sans;
 }
