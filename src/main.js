@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import router from './router'
-import './style.css'
+import './assets/tailwind.css'
 import App from './App.vue'
+import { gsap } from "gsap";
+
+gsap.registerPlugin(TextPlugin)
 
 const app = createApp(App)
 

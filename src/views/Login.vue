@@ -10,22 +10,21 @@ if (spotifyCredentials.isLogged()) {
 </script>
 
 <template>
-    <h1>The Vinyl</h1>
-    <button name="login" @click="spotifyCredentials.authenticate()" class="button-spotify"><b>Login to Spotify</b></button>
+    <h1 id="title" @click="spotifyCredentials.authenticate()" class="align-middle mt-0 text-[10dvh] font-pacifico"></h1>
+    <button name="login" class="button-spotify px-10 py-3">Login to Spotify</button>
 </template>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Matemasie&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
+<script>
+import { gsap } from "gsap";
 
-h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 10dvh;
-    text-align: center;
-    margin-top: 0;
-}
-
-.button-spotify {
-    width: 20rem;
-    height: 3rem;
-}
-</style>
+export default {
+  name: 'Login',
+  mounted() {
+    gsap.to("#title", {
+      duration: 2.5,
+      text: "The Vinyl",
+      ease: "none",
+    });
+  }
+};
+</script>

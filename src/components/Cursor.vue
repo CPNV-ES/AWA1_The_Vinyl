@@ -1,21 +1,8 @@
 <template>
-    <div id="cursor"></div>
+    <div id="cursor" class="inset-0 absolute translate-x-1/2 translate-y-1/2 w-3 h-3 bg-white rounded-full pointer-events-none transform translate-z-[100dvh] mix-blend-difference"></div>
 </template>
 
 <style>
-#cursor {
-    inset: 0;
-    position: absolute;
-    translate: -50% -50%;
-    width: 0.65rem;
-    height: 0.65rem;
-    background-color: white;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999;
-    mix-blend-mode: difference;
-}
-
 * {
     cursor: none !important;
 }
