@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import router from './router'
-import './assets/styles.css'
+import './assets/tailwind.css'
 import App from './App.vue'
 import { gsap } from "gsap";
 
