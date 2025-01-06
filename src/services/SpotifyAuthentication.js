@@ -58,11 +58,14 @@ class SpotifyAuthentication {
 
 	async getAccessToken() {
 		await this.sdk.authenticate();
-		return await this.sdk.getAccessToken();
+		return this.sdk
+			.getAccessToken()
+			.then((response) => response.access_token);
 	}
-    transferPlayback(device_id) {
-        return this.sdk.player.transferPlayback([device_id]);
-    }
+
+	transferPlayback(device_id) {
+		return this.sdk.player.transferPlayback([device_id]);
+	}
 }
 
 export default new SpotifyAuthentication();
