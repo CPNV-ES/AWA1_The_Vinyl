@@ -1,10 +1,10 @@
 <script setup>
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
-import { Song } from '../lib/Song';
 import SongBanner from './SongBanner.vue';
 
 // mocks
-import mockedSongs from '../../public/mocks/songs.json';
+// import mockedSongs from '../../public/mocks/songs.json';
+// import Song from '../lib/Song.js';
 </script>
 
 <template>
@@ -20,18 +20,28 @@ import mockedSongs from '../../public/mocks/songs.json';
 </template>
 
 <script>
+import SpotifySearch from "../services/SpotifySearch.js";
+
+const spotifySearch = new SpotifySearch();
+
 export default {
     name: 'SearchBar',
     data() {
         return {
             searchQuery: '',
             songs: [],
+            searchDelay: null
         };
     },
     methods: {
-        search(event) {
+        async search(event) {
             // mock
-            this.songs = mockedSongs.map(({ title, artist, cover }) => new Song(title, artist, cover));
+            // this.songs = mockedSongs.map(({ title, artist, cover }) => new Song(title, artist, cover));
+            clearTimeout(this.searchDelay);
+            this.searchDelay = setTimeout(async () => {
+              this.songs = await spotifySearch.search(event.target.value);
+            }, 300);
+
         }
     }
 };
