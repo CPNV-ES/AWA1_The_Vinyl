@@ -1,9 +1,7 @@
 <script setup>
 import SpotifyAuthentication from "../services/SpotifyAuthentication.js";
 
-const spotifyCredentials = new SpotifyAuthentication();
-
-if (spotifyCredentials.isLogged()) {
+if (SpotifyAuthentication.isLogged()) {
   window.location.href = "/";
 }
 
@@ -11,7 +9,7 @@ if (spotifyCredentials.isLogged()) {
 
 <template>
     <h1>The Vinyl</h1>
-    <button name="login" @click="spotifyCredentials.authenticate()" class="button-spotify"><b>Login to Spotify</b></button>
+    <button name="login" @click="SpotifyAuthentication.authenticate()" class="button-spotify"><b>Login to Spotify</b></button>
 </template>
 
 <style>
