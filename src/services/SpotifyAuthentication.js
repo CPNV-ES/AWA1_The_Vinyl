@@ -56,11 +56,10 @@ class SpotifyAuthentication {
 		return this.sdk;
 	}
 
-	getAccessToken() {
-        // THIS MUST BE CHANGED
-		return "secret token";
+	async getAccessToken() {
+		await this.sdk.authenticate();
+		return await this.sdk.getAccessToken();
 	}
-
     transferPlayback(device_id) {
         return this.sdk.player.transferPlayback([device_id]);
     }
