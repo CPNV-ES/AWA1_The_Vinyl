@@ -1,14 +1,14 @@
 <script setup>
 import { onMounted } from "vue";
 import { useSpotifyStore } from "../stores/spotify";
-import SpotifyPlayerService from "../services/SpotifyPlayer.js";
+import SpotifyPlayer from "../services/SpotifyPlayer.js";
 
 let spotifyPlayerService = null;
 const store = useSpotifyStore();
 
 onMounted(() => {
 
-    spotifyPlayerService = new SpotifyPlayerService(store);
+    spotifyPlayerService = new SpotifyPlayer(store);
 
     spotifyPlayerService.initPlayer();
 });
