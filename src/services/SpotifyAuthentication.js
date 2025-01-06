@@ -40,7 +40,6 @@ class SpotifyAuthentication {
 	}
 
 	async getAccessToken() {
-		console.log('isLogin', this.isLogin)
 		await this.sdk.authenticate();
 		return await this.sdk.getAccessToken();
 	}
