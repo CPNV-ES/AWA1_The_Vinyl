@@ -4,14 +4,16 @@ import SearchBar from '../components/SearchBar.vue';
 import VinylCoverQueue from '../components/graphicComponents/VinylCoverQueue.vue';
 import SongPreview from '../components/SongPreview.vue';
 import { VinylPlayer as VP } from '../lib/VinylPlayer';
+import SpotifyAuthentication from "../services/SpotifyAuthentication.js";
 
+const spotifyCredentials = new SpotifyAuthentication();
 const player = new VP();
 </script>
 
 <template>
     <nav class="justify-between flex gap-4">
         <SearchBar @onPick:song="player.addToQueue($event)" />
-        <button name="logout" class="button-spotify px-3 py-1"><b>Logout</b></button>
+        <button name="logout" @click="spotifyCredentials.logout()" class="button-spotify px-3 py-1"><b>Logout</b></button>
     </nav>
     <div class="grow flex flex-col lg:flex-row perspective-1600">
         <section class="flex justify-center items-center h-full w-[50dvw] px-[5dvh] relative">

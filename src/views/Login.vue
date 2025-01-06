@@ -10,8 +10,8 @@ if (spotifyCredentials.isLogged()) {
 </script>
 
 <template>
-    <h1 id="title" @click="spotifyCredentials.authenticate()" class="align-middle mt-0 text-[10dvh] font-pacifico"></h1>
-    <button name="login" class="button-spotify px-10 py-3">Login to Spotify</button>
+    <h1 id="title" class="align-middle mt-0 text-[10dvh] font-pacifico"></h1>
+    <button name="login" @click="spotifyCredentials.authenticate()"  class="button-spotify px-10 py-3">Login to Spotify</button>
 </template>
 
 <script>
