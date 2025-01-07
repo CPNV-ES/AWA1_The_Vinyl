@@ -1,4 +1,4 @@
-import SpotifyAuthentication from "../services/SpotifyAuthentication.js";
+import SpotifyAuthentication from "./SpotifyAuthentication.js";
 
 class SpotifyPlayer {
 	constructor(store) {
