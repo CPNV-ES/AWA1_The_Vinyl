@@ -44,7 +44,7 @@ onMounted(() => {
 						v-if="store.current_track"
 						:song="store.current_track" />
 				</div>
-				<!-- <VinylPlayer :player="player" /> -->
+				<VinylPlayer :player="spotifyPlayer" :store="store"/>
 			</section>
 			<section
 				class="flex items-center h-full w-[50dvw] px-[5dvh] relative">
