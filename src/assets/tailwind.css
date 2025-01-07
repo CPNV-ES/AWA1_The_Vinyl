@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    @apply transform-style-3d;
+}
+
+body {
+    @apply m-0 overflow-hidden bg-[#f1edc2] font-sans;
+}
+
+body,
+#app {
+    @apply w-full h-[100dvh] flex flex-col justify-center items-center;
+}
+
+nav {
+    @apply w-full flex justify-evenly items-center p-4;
+}
+
+.button-spotify {
+    @apply align-middle font-bold rounded-full text-[#1db954] border-[#1db954] border-2 bg-white outline-none cursor-pointer transition-all duration-300 hover:bg-[#1db954] hover:text-white;
+}
