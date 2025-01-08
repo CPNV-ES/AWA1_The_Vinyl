@@ -8,13 +8,18 @@ import { onMounted } from "vue";
 import { useSpotifyStore } from "../stores/spotify";
 import SpotifyPlayer from "../lib/SpotifyPlayer";
 import SpotifyAuthentication from "../lib/SpotifyAuthentication";
+import SpotifyQueueHandler from "../lib/SpotifyQueueHandler";
 
 let spotifyPlayer = null;
+let queue = [];
 const store = useSpotifyStore();
+
+const SpotifyQueue = new SpotifyQueueHandler(store);
 
 onMounted(() => {
 	spotifyPlayer = new SpotifyPlayer(store);
 	spotifyPlayer.initPlayer();
+	queue = SpotifyQueue.getQueue();
 });
 </script>
 
@@ -57,7 +62,6 @@ onMounted(() => {
 		</div>
 	</template>
 </template>
-
 <script>
 export default { name: "Home" };
 </script>
