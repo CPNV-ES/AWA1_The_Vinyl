@@ -19,6 +19,7 @@ class SpotifyAuthentication {
 				"user-read-email",
 				"streaming",
 				"user-modify-playback-state",
+				"user-read-playback-state",
 			]
 		);
 		this.sdk = new SpotifyApi(this.implicitGrantStrategy);
@@ -64,7 +65,7 @@ class SpotifyAuthentication {
 	}
 
 	transferPlayback(device_id) {
-		return this.sdk.player.transferPlayback([device_id]);
+		return this.sdk.player.transferPlayback([device_id], true);
 	}
 }
 
