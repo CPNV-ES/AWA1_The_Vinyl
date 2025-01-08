@@ -13,7 +13,8 @@ class SpotifyQueueHandler {
 
 	async getQueue() {
 		const response = await this.sdk.player.getUsersQueue();
-		return response;
+        
+        return response.queue;
 	}
 }
 
