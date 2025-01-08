@@ -11,11 +11,12 @@
     "tailwind:build": "npx tailwindcss -i ./src/assets/tailwind.css -o ./src/assets/styles.css"
   },
   "dependencies": {
+    "@spotify/web-api-ts-sdk": "^1.2.0",
+    "pinia": "^2.3.0",
     "@heroicons/vue": "^2.2.0",
     "gsap": "^3.12.5",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "@spotify/web-api-ts-sdk": "^1.2.0"
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

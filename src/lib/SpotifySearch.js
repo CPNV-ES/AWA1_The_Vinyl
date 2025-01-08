@@ -1,9 +1,9 @@
 import SpotifyAuthentication from "./SpotifyAuthentication.js";
-import {Song} from "../lib/Song.js";
+import {Song} from "./Song.js";
 
 export default class SpotifySearch {
 	constructor() {
-		this.sdk = new SpotifyAuthentication().getSdk();
+		this.sdk = SpotifyAuthentication.getSdk();
 	}
 
     async search(query) {

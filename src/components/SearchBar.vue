@@ -20,7 +20,7 @@ import SongBanner from './SongBanner.vue';
 </template>
 
 <script>
-import SpotifySearch from "../services/SpotifySearch.js";
+import SpotifySearch from "../lib/SpotifySearch.js";
 
 const spotifySearch = new SpotifySearch();
 

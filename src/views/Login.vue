@@ -1,30 +1,26 @@
 <script setup>
-import SpotifyAuthentication from "../services/SpotifyAuthentication.js";
+import SpotifyAuthentication from "../lib/SpotifyAuthentication.js";
+import { gsap } from "gsap";
+import { onMounted } from "vue";
 
-const spotifyCredentials = new SpotifyAuthentication();
+onMounted(() => {
+	gsap.to("#title", {
+		duration: 2.5,
+		text: "The Vinyl",
+		ease: "none",
+	});
+});
 
-if (spotifyCredentials.isLogged()) {
-  window.location.href = "/";
+if (SpotifyAuthentication.isLogged()) {
+	window.location.href = "/";
 }
-
 </script>
 
 <template>
-    <h1 id="title" class="align-middle mt-0 text-[10dvh] font-pacifico"></h1>
-    <button name="login" @click="spotifyCredentials.authenticate()"  class="button-spotify px-10 py-3">Login to Spotify</button>
+	<h1
+		id="title"
+		class="align-middle mt-0 text-[10dvh] font-pacifico py-2"></h1>
+	<button @click="SpotifyAuthentication.authenticate()" name="login" class="button-spotify px-10 py-3">
+		Login to Spotify
+	</button>
 </template>
-
-<script>
-import { gsap } from "gsap";
-
-export default {
-  name: 'Login',
-  mounted() {
-    gsap.to("#title", {
-      duration: 2.5,
-      text: "The Vinyl",
-      ease: "none",
-    });
-  }
-};
-</script>
