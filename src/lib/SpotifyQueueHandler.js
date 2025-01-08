@@ -1,10 +1,9 @@
 import SpotifyAuthentication from "./SpotifyAuthentication";
-import { useSpotifyStore } from "../stores/spotify";
 
 class SpotifyQueueHandler {
-	constructor() {
+	constructor(store) {
 		this.sdk = SpotifyAuthentication.getSdk();
-		this.store = useSpotifyStore();
+		this.store = store;
 	}
 
 	addSongToQueue(song) {
