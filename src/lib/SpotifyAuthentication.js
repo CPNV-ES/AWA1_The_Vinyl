@@ -20,6 +20,7 @@ class SpotifyAuthentication {
 				"streaming",
 				"user-modify-playback-state",
 				"user-read-playback-state",
+				"user-library-read",
 			]
 		);
 		this.sdk = new SpotifyApi(this.implicitGrantStrategy);

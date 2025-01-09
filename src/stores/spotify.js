@@ -30,6 +30,7 @@ export const useSpotifyStore = defineStore("spotify", () => {
 		is_paused,
 		player,
 		current_track,
+		device_id,
 		setActive,
 		setPaused,
 		setPlayer,

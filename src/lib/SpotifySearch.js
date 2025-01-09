@@ -15,7 +15,8 @@ export default class SpotifySearch {
 		    return new Song(
 			    item.name,
 			    item.artists.map((artist) => artist.name).join(', '),
-			    item.album.images[0].url
+			    item.album.images[0].url,
+			    item.uri
 		    );
 	    });
     }
