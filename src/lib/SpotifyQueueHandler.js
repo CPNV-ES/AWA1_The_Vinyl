@@ -1,5 +1,4 @@
 import SpotifyAuthentication from "./SpotifyAuthentication";
-import { useSpotifyStore } from "../stores/spotify";
 
 class SpotifyQueueHandler {
 	constructor(store) {
