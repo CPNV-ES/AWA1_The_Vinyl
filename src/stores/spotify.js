@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { Song } from "../lib/Song";
 
 export const useSpotifyStore = defineStore("spotify", {
 	state: () => ({
@@ -24,10 +25,12 @@ export const useSpotifyStore = defineStore("spotify", {
 			this.device_id = newValue;
 		},
 		setTrack(newValue) {
-			this.current_track.title = newValue.name;
-			this.current_track.artist = newValue.artists[0].name;
-			this.current_track.cover = newValue.album.images[0].url;
-			this.current_track.uri = newValue.uri;
+			this.current_track = new Song(
+				newValue.name,
+				newValue.artists[0].name,
+				newValue.album.images[0].url,
+				newValue.uri
+			);
 			if (newValue.uri === this.queue[0]?.uri) {
 				this.queue.shift();
 				this.preview = null;
