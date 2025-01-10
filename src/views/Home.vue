@@ -3,8 +3,9 @@ import VinylPlayer from "../components/graphicComponents/VinylPlayer.vue";
 import SearchBar from "../components/SearchBar.vue";
 import VinylCoverQueue from "../components/graphicComponents/VinylCoverQueue.vue";
 import SongPreview from "../components/SongPreview.vue";
+// import Snap from "../components/Snap.vue";
 
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useSpotifyStore } from "../stores/spotify";
 import SpotifyPlayer from "../lib/SpotifyPlayer";
 import SpotifyAuthentication from "../lib/SpotifyAuthentication";
@@ -12,8 +13,9 @@ import SpotifyQueueHandler from "../lib/SpotifyQueueHandler";
 
 let spotifyPlayer = null;
 const store = useSpotifyStore();
-
 const SpotifyQueue = new SpotifyQueueHandler(store);
+
+const isWideScreen = computed(() => window.innerWidth >= 1024);
 
 onMounted(() => {
 	spotifyPlayer = new SpotifyPlayer(store);
@@ -31,28 +33,32 @@ onMounted(() => {
 			<b>Logout</b>
 		</button>
 	</nav>
-	<div class="grow flex flex-col lg:flex-row perspective-1600">
+	<div class="grow w-full flex flex-col lg:flex-row perspective-1600">
 		<section
-			class="flex justify-center items-center h-full w-[50dvw] px-[5dvh] relative">
+			:class="['flex justify-center items-center h-full px-[5dvh] relative', isWideScreen ? 'w-[50dvw]' : 'w-full']">
 			<h1
 				class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">
 				Current song
 			</h1>
 			<template v-if="store.isActive">
-				<div class="h-[15dvh] w-[15dvh] absolute top-20 left-[10dvh]">
+				<div v-if="isWideScreen" class="h-[15dvh] w-[15dvh] absolute top-20 left-[10dvh]">
 					<SongPreview
 						v-if="store.currentTrack"
 						:song="store.currentTrack" />
 				</div>
+				<div :class="[isWideScreen ? '' : 'absolute -translate-y-[15dvh]']">
 				<VinylPlayer :player="spotifyPlayer" />
+				</div>
 			</template>
 		</section>
-		<section class="flex items-center h-full w-[50dvw] px-[5dvh] relative">
+		<section :class="['flex h-full relative items-center', isWideScreen ? 'w-[50dvw] px-[5dvh]' : 'w-full']">
 			<h1
-				class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">
+				:class="['absolute top-0 text-2xl font-pacifico uppercase font-bold', isWideScreen ? 'left-[2dvh]' : '']">
 				Next songs
 			</h1>
-			<VinylCoverQueue :queue="store.queue" />
+
+			<VinylCoverQueue v-if="isWideScreen" :queue="store.queue" />
+			<!-- <Snap v-else :queue="store.queue" /> -->
 		</section>
 	</div>
 </template>
