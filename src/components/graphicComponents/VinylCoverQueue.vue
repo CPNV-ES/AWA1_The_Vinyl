@@ -10,11 +10,11 @@ const store = useSpotifyStore();
 const visibleCoverCount = 15;
 const visibleCoverStartIndex = ref(0);
 
-var visibleCovers = [];
+let visibleCovers = [];
 
 watch(
 	() => store.queue,
-	(newQueue) => {
+	() => {
 		visibleCovers = computed(() => {
 			return store.queue.slice(
 				visibleCoverStartIndex.value,
