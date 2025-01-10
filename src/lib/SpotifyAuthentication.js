@@ -25,29 +25,31 @@ class SpotifyAuthentication {
 		);
 		this.sdk = new SpotifyApi(this.implicitGrantStrategy);
 
-		if (localStorage.getItem("isLogin")) {
-			this.isLogin = Boolean(Number(localStorage.getItem("isLogin")));
-		} else {
-			this.isLogin = false;
-			localStorage.setItem("isLogin", String(0));
-		}
+		this.isLogin = Boolean(Number(localStorage.getItem("isLogin")) || 0);
 
 		SpotifyAuthentication.instance = this;
 	}
 
 	async authenticate() {
-		await this.sdk.authenticate();
-		await localStorage.setItem("isLogin", String(1));
-		this.isLogin = true;
-		window.location.reload();
+		try {
+			await this.sdk.authenticate();
+			localStorage.setItem("isLogin", "1");
+			this.isLogin = true;
+			window.location.reload();
+		} catch (error) {
+			console.error("Authentication failed:", error);
+		}
 	}
 
 	async logout() {
-		await this.implicitGrantStrategy.removeAccessToken();
-		await localStorage.setItem("isLogin", String(0));
-		this.isLogin = false;
-		console.log("logout", this.isLogin);
-		window.location.reload();
+		try {
+			await this.implicitGrantStrategy.removeAccessToken();
+			localStorage.setItem("isLogin", "0");
+			this.isLogin = false;
+			window.location.reload();
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
 	}
 
 	isLogged() {
