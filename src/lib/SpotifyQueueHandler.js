@@ -8,7 +8,7 @@ class SpotifyQueueHandler {
 
 	async addSongToQueue(song) {
 		try {
-			if (!this.store.current_track.uri) {
+			if (!this.store.currentTrack.uri) {
 				await this._startPlaybackWithSong(song.uri);
 			} else {
 				await this._addSongToQueueRequest(song.uri);
@@ -22,7 +22,7 @@ class SpotifyQueueHandler {
 	async _startPlaybackWithSong(songUri) {
 		try {
 			await this.sdk.player.startResumePlayback(
-				this.store.device_id,
+				this.store.deviceId,
 				null,
 				[songUri]
 			);
@@ -37,7 +37,7 @@ class SpotifyQueueHandler {
 
 		try {
 			const response = await fetch(
-				`https://api.spotify.com/v1/me/player/queue?uri=${songUri}&device_id=${this.store.device_id}`,
+				`https://api.spotify.com/v1/me/player/queue?uri=${songUri}&device_id=${this.store.deviceId}`,
 				{
 					method: "POST",
 					headers: {

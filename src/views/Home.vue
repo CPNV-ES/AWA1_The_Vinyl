@@ -38,11 +38,11 @@ onMounted(() => {
 				class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">
 				Current song
 			</h1>
-			<template v-if="store.is_active">
+			<template v-if="store.isActive">
 				<div class="h-[15dvh] w-[15dvh] absolute top-20 left-[10dvh]">
 					<SongPreview
-						v-if="store.current_track"
-						:song="store.current_track" />
+						v-if="store.currentTrack"
+						:song="store.currentTrack" />
 				</div>
 				<VinylPlayer :player="spotifyPlayer" />
 			</template>

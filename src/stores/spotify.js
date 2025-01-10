@@ -3,29 +3,29 @@ import { Song } from "../lib/Song";
 
 export const useSpotifyStore = defineStore("spotify", {
 	state: () => ({
-		is_active: false,
-		is_paused: false,
+		isActive: false,
+		isPaused: false,
 		player: {},
-		current_track: {},
-		device_id: "",
+		currentTrack: {},
+		deviceId: "",
 		queue: [],
 		preview: null,
 	}),
 	actions: {
 		setActive(newValue) {
-			this.is_active = newValue;
+			this.isActive = newValue;
 		},
 		setPaused(newValue) {
-			this.is_paused = newValue;
+			this.isPaused = newValue;
 		},
 		setPlayer(newValue) {
 			this.player = newValue;
 		},
 		setDeviceId(newValue) {
-			this.device_id = newValue;
+			this.deviceId = newValue;
 		},
 		setTrack(newValue) {
-			this.current_track = new Song(
+			this.currentTrack = new Song(
 				newValue.name,
 				newValue.artists[0].name,
 				newValue.album.images[0].url,
