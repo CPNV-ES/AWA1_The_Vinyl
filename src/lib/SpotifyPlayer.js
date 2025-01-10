@@ -5,18 +5,53 @@ class SpotifyPlayer {
 		this.store = store;
 		this.token = SpotifyAuthentication.getAccessToken();
 		this.player = null;
+		this.isInitialized = false;
 	}
 
 	initPlayer() {
-		const script = document.createElement("script");
-		script.src = "https://sdk.scdn.co/spotify-player.js";
-		script.async = true;
-		document.body.appendChild(script);
+		if (this.isInitialized) return;
 
-		window.onSpotifyWebPlaybackSDKReady = this.setupPlayer.bind(this);
+		this._loadSdkScript()
+			.then(() => {
+				window.onSpotifyWebPlaybackSDKReady =
+					this._setupPlayer.bind(this);
+			})
+			.catch((error) => {
+				console.error("Error loading the Spotify SDK:", error);
+			});
+
+		this.isInitialized = true;
 	}
 
-	setupPlayer() {
+	togglePlay() {
+		this.player.togglePlay();
+	}
+
+	playPreviousTrack() {
+		this.player.previousTrack();
+	}
+
+	playNextTrack() {
+		this.player.nextTrack();
+	}
+
+	_loadSdkScript() {
+		return new Promise((resolve, reject) => {
+			if (document.getElementById("spotify-player-script")) {
+				return resolve();
+			}
+
+			const script = document.createElement("script");
+			script.src = "https://sdk.scdn.co/spotify-player.js";
+			script.async = true;
+			script.id = "spotify-player-script";
+			script.onload = resolve;
+			script.onerror = reject;
+			document.body.appendChild(script);
+		});
+	}
+
+	_setupPlayer() {
 		this.player = new window.Spotify.Player({
 			name: "Web Playback SDK",
 			getOAuthToken: (cb) => {
@@ -27,6 +62,12 @@ class SpotifyPlayer {
 
 		this.store.setPlayer(this.player);
 
+		this._addPlayerEventListeners();
+
+		this.player.connect();
+	}
+
+	_addPlayerEventListeners() {
 		this.player.addListener("ready", ({ device_id }) => {
 			console.log("Ready with Device ID", device_id);
 			this.store.setDeviceId(device_id);
@@ -38,32 +79,26 @@ class SpotifyPlayer {
 		});
 
 		this.player.addListener("player_state_changed", (state) => {
-			if (!state) return;
-			this.store.setTrack(state.track_window.current_track);
-			this.store.setPaused(state.paused);
-
-			this.player.getCurrentState().then((state) => {
-				if (!state) {
-					this.store.setActive(false);
-				} else {
-					this.store.setActive(true);
-				}
-			});
+			if (state) {
+				this._handlePlayerStateChange(state);
+			}
 		});
-
-		this.player.connect();
 	}
 
-	playPreviousTrack() {
-		this.player.previousTrack();
-	}
+	_handlePlayerStateChange(state) {
+		const { current_track } = state.track_window;
+		const { paused } = state;
 
-	togglePlay() {
-		this.player.togglePlay();
-	}
+		this.store.setTrack(current_track);
+		this.store.setPaused(paused);
 
-	playNextTrack() {
-		this.player.nextTrack();
+		this.player.getCurrentState().then((state) => {
+			if (!state) {
+				this.store.setActive(false);
+			} else {
+				this.store.setActive(true);
+			}
+		});
 	}
 }
 
