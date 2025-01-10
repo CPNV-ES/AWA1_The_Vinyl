@@ -6,31 +6,36 @@ export default class SpotifySearch {
 		this.sdk = SpotifyAuthentication.getSdk();
 	}
 
+	/**
+	 * Search for tracks on Spotify
+	 * @param query {string}
+	 * @returns {Promise<Song[]>}
+	 */
 	async search(query) {
-		if (!query) {
-			return [];
-		}
+		if (!query) return [];
 
 		try {
-			const response = await this.sdk.search(
-				query,
-				["track", "artist", "album"],
-				0,
-				6
-			);
+			const response = await this.sdk.search(query, ["track"], 0, 6);
 
 			if (!response || !response.tracks || !response.tracks.items) {
 				console.warn("No results found for the query:", query);
 				return [];
 			}
 
-			return response.tracks.items.map(this._mapToSong);
+			return response.tracks.items.map(this.#mapToSong);
 		} catch (error) {
 			console.error("Error while searching for tracks:", error);
 			return [];
 		}
 	}
-	_mapToSong(item) {
+
+	/**
+	 * Map the Spotify API response to a Song object
+	 * @param item {Object}
+	 * @returns {Song}
+	 * @private
+	 */
+	#mapToSong(item) {
 		const name = item.name || "Unknown";
 		const artistNames =
 			item.artists?.map((artist) => artist.name).join(", ") ||

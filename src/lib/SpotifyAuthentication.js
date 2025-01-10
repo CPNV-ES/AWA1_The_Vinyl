@@ -30,17 +30,24 @@ class SpotifyAuthentication {
 		SpotifyAuthentication.instance = this;
 	}
 
+	/**
+	 * Authenticate the user with Spotify
+	 * @returns {Promise<void>}
+	 */
 	async authenticate() {
 		try {
 			await this.sdk.authenticate();
 			localStorage.setItem("isLogin", "1");
 			this.isLogin = true;
-			window.location.reload();
 		} catch (error) {
 			console.error("Authentication failed:", error);
 		}
 	}
 
+	/**
+	 * Logout the user from Spotify
+	 * @returns {Promise<void>}
+	 */
 	async logout() {
 		try {
 			await this.implicitGrantStrategy.removeAccessToken();
@@ -52,23 +59,31 @@ class SpotifyAuthentication {
 		}
 	}
 
+	/**
+	 * Check if the user is logged in
+	 * @returns {boolean}
+	 */
 	isLogged() {
 		return this.isLogin;
 	}
 
+	/**
+	 * Get the Spotify SDK instance
+	 * @returns {SpotifyApi}
+	 */
 	getSdk() {
 		return this.sdk;
 	}
 
+	/**
+	 * Get the spotify access token
+	 * @returns {Promise<string>}
+	 */
 	async getAccessToken() {
 		await this.sdk.authenticate();
 		return this.sdk
 			.getAccessToken()
 			.then((response) => response.access_token);
-	}
-
-	transferPlayback(device_id) {
-		return this.sdk.player.transferPlayback([device_id], true);
 	}
 }
 
