@@ -4,7 +4,6 @@ class SpotifyQueueHandler {
 	constructor(store) {
 		this.sdk = SpotifyAuthentication.getSdk();
 		this.store = store;
-		this.queue = [];
 	}
 
 	async addSongToQueue(song) {
@@ -21,17 +20,8 @@ class SpotifyQueueHandler {
 				song.uri
 			);
 
-			this.queue.push({
-				uri: song.uri,
-				title: song.title,
-				artist: song.artist,
-				cover: song.cover,
-			});
+			this.store.addToQueue(song);
 		}
-	}
-
-	getQueue() {
-		return this.queue;
 	}
 
 	async addSongToQueueRequest(accessTokens, deviceId, songUri) {

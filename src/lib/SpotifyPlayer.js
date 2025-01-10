@@ -39,7 +39,6 @@ class SpotifyPlayer {
 
 		this.player.addListener("player_state_changed", (state) => {
 			if (!state) return;
-
 			this.store.setTrack(state.track_window.current_track);
 			this.store.setPaused(state.paused);
 
