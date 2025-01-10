@@ -8,6 +8,10 @@ class SpotifyPlayer {
 		this.isInitialized = false;
 	}
 
+	/**
+	 * Initialize the Spotify player
+	 * @returns {void}
+	 */
 	initPlayer() {
 		if (this.isInitialized) return;
 
@@ -23,18 +27,34 @@ class SpotifyPlayer {
 		this.isInitialized = true;
 	}
 
+	/**
+	 * Play the current track
+	 * @returns {void}
+	 */
 	togglePlay() {
 		this.player.togglePlay();
 	}
 
+	/**
+	 * Pause the current track
+	 * @returns {void}
+	 */
 	playPreviousTrack() {
 		this.player.previousTrack();
 	}
 
+	/**
+	 * Play the next track
+	 * @returns {void}
+	 */
 	playNextTrack() {
 		this.player.nextTrack();
 	}
 
+	/**
+	 * Seek to a specific position in the track
+	 * @returns {Promise<void>}
+	 */
 	#loadSdkScript() {
 		return new Promise((resolve, reject) => {
 			if (document.getElementById("spotify-player-script")) {
@@ -51,6 +71,10 @@ class SpotifyPlayer {
 		});
 	}
 
+	/**
+	 * Setup the Spotify player
+	 * @returns {void}
+	 */
 	#setupPlayer() {
 		this.player = new window.Spotify.Player({
 			name: "Web Playback SDK",
@@ -67,6 +91,10 @@ class SpotifyPlayer {
 		this.player.connect();
 	}
 
+	/**
+	 * Add event listeners to the Spotify player
+	 * @returns {void}
+	 */
 	#addPlayerEventListeners() {
 		this.player.addListener("ready", ({ device_id }) => {
 			console.log("Ready with Device ID", device_id);
@@ -85,6 +113,11 @@ class SpotifyPlayer {
 		});
 	}
 
+	/**
+	 * Handle the player state change
+	 * @param state {Object}
+	 * @returns {void}
+	 */
 	#handlePlayerStateChange(state) {
 		const { current_track } = state.track_window;
 		const { paused } = state;
@@ -101,6 +134,11 @@ class SpotifyPlayer {
 		});
 	}
 
+	/**
+	 * Transfer playback to the Spotify player
+	 * @param device_id {string}
+	 * @returns {void}
+	 */
 	#transferPlayback(device_id) {
 		SpotifyAuthentication.getSdk().player.transferPlayback([device_id], true);
 	}
