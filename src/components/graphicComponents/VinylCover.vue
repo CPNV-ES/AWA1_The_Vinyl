@@ -1,23 +1,21 @@
 <script setup>
 defineProps({
 	name: "VinylCover",
-	props: {
-		cover: {
-			type: String,
-			required: true,
-		},
-		zIndex: {
-			type: Number,
-			required: true,
-		},
-		isPreviewed: {
-			type: Boolean,
-			default: false,
-		},
-		translucent: {
-			type: Boolean,
-			default: false,
-		},
+	cover: {
+		type: String,
+		required: true,
+	},
+	zIndex: {
+		type: Number,
+		required: true,
+	},
+	isPreviewed: {
+		type: Boolean,
+		default: false,
+	},
+	translucent: {
+		type: Boolean,
+		default: false,
 	},
 });
 </script>

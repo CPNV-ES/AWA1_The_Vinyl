@@ -1,37 +1,45 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, defineProps, watch } from "vue";
 import VinylCover from "./VinylCover.vue";
 import SongPreview from "../SongPreview.vue";
 import { onMounted } from "vue";
 
 const props = defineProps({
 	queue: {
-		type: Object,
+		type: Array,
 		required: true,
+		default: () => [],
 	},
 });
 
-console.log(props.queue.values);
-
-const preview = ref(null);
+const preview = ref({});
 const visibleCoverCount = 15;
 const visibleCoverStartIndex = ref(0);
-const visibleCovers = computed(() => {
-	return props.queue.slice(
-		visibleCoverStartIndex,
-		visibleCoverStartIndex + visibleCoverCount
-	);
-});
+
+var visibleCovers = [];
+
+watch(
+	() => props.queue,
+	(newQueue) => {
+		visibleCovers = computed(() => {
+			return props.queue.slice(
+				visibleCoverStartIndex.value,
+				visibleCoverStartIndex.value + visibleCoverCount
+			);
+		});
+	},
+	{ deep: true }
+);
 
 function moveCoversRight() {
-	if (visibleCoverStartIndex + visibleCoverCount < queue.length) {
-		visibleCoverStartIndex++;
+	if (visibleCoverStartIndex.value + visibleCoverCount < props.queue.length) {
+		visibleCoverStartIndex.value++;
 	}
 }
 
 function moveCoversLeft() {
-	if (visibleCoverStartIndex > 0) {
-		visibleCoverStartIndex--;
+	if (visibleCoverStartIndex.value > 0) {
+		visibleCoverStartIndex.value--;
 	}
 }
 
@@ -51,17 +59,17 @@ onMounted(() => {
 	<template v-else>
 		<div class="flex flex-col w-full h-full relative">
 			<div class="h-[15dvh] w-[15dvh] absolute top-20 left-[5dvh]">
-				<SongPreview :preview />
+				<SongPreview :song="preview" />
 			</div>
 			<div
 				class="flex h-full items-center flex-grow gap-1 transform pt-[15dvh] pl-[5dvh]">
 				<VinylCover
-					@mouseover="preview = song"
+					@mouseover="preview = album"
 					v-for="(album, index) in visibleCovers"
 					:key="album.id"
 					:zIndex="index > visibleCoverCount / 2 ? -index : index"
-					:cover="album.album.images[0].url"
-					:isPreviewed="preview === song"
+					:cover="album.cover"
+					:isPreviewed="preview === album"
 					:translucent="
 						(visibleCoverStartIndex > 0 && index == 0) ||
 						(index == visibleCoverCount - 1 &&
