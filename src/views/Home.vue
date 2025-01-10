@@ -35,7 +35,7 @@ onMounted(() => {
 	</nav>
 	<div class="grow w-full flex flex-col lg:flex-row perspective-1600">
 		<section
-			:class="['flex justify-center items-center h-full px-[5dvh] relative', isWideScreen ? 'w-[50dvw]' : 'w-full']">
+			class="flex justify-center items-center h-full px-[5dvh] relative w-full lg:w-[50dvw]">
 			<h1
 				class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">
 				Current song
@@ -46,14 +46,13 @@ onMounted(() => {
 						v-if="store.currentTrack"
 						:song="store.currentTrack" />
 				</div>
-				<div :class="[isWideScreen ? '' : 'absolute -translate-y-[15dvh]']">
+				<div class="absolute -translate-y-[15dvh] lg:block lg:translate-y-0">
 				<VinylPlayer :player="spotifyPlayer" />
 				</div>
 			</template>
 		</section>
-		<section :class="['flex h-full relative items-center', isWideScreen ? 'w-[50dvw] px-[5dvh]' : 'w-full']">
-			<h1
-				:class="['absolute top-0 text-2xl font-pacifico uppercase font-bold', isWideScreen ? 'left-[2dvh]' : '']">
+		<section class="flex h-full relative items-center w-full lg:w-[50dvw] px-[5dvh]">
+			<h1 class="absolute top-0 text-2xl font-pacifico uppercase font-bold lg:left-[2dvh]">
 				Next songs
 			</h1>
 
