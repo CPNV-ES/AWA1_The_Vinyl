@@ -6,12 +6,17 @@ class SpotifyQueueHandler {
 		this.store = store;
 	}
 
+	/**
+	 * Add a song to the playback queue
+	 * @param song {Song}
+	 * @returns {Promise<void>}
+	 */
 	async addSongToQueue(song) {
 		try {
 			if (!this.store.currentTrack.uri) {
-				await this._startPlaybackWithSong(song.uri);
+				await this.#startPlaybackWithSong(song.uri);
 			} else {
-				await this._addSongToQueueRequest(song.uri);
+				await this.#addSongToQueueRequest(song.uri);
 				this.store.addToQueue(song);
 			}
 		} catch (error) {
@@ -19,7 +24,13 @@ class SpotifyQueueHandler {
 		}
 	}
 
-	async _startPlaybackWithSong(songUri) {
+	/**
+	 * Start the playback with a specific song
+	 * @param songUri {string}
+	 * @returns {Promise<void>}
+	 * @private
+	 */
+	async #startPlaybackWithSong(songUri) {
 		try {
 			await this.sdk.player.startResumePlayback(
 				this.store.deviceId,
@@ -32,7 +43,13 @@ class SpotifyQueueHandler {
 		}
 	}
 
-	async _addSongToQueueRequest(songUri) {
+	/**
+	 * Add a song to the playback queue
+	 * @param songUri {string}
+	 * @returns {Promise<void>}
+	 * @private
+	 */
+	async #addSongToQueueRequest(songUri) {
 		const accessToken = await SpotifyAuthentication.getAccessToken();
 
 		try {
