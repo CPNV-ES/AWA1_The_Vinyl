@@ -8,9 +8,18 @@ import {
 	PlayIcon,
 	PauseIcon,
 } from "@heroicons/vue/24/solid";
+import { useSpotifyStore } from "../../stores/spotify";
 
 const pressedBackward = ref(false);
 const pressedForward = ref(false);
+
+const store = useSpotifyStore();
+
+defineProps({
+	player: {
+		type: Object,
+	}
+});
 </script>
 
 <template>
@@ -18,11 +27,11 @@ const pressedForward = ref(false);
 		<div
 			id="player-top"
 			class="bg-orange-900 h-[50dvh] w-[50dvh] flex justify-center items-center origin-bottom transform rotate-x-60 overflow-hidden">
-			<template v-if="store.is_active">
+			<template v-if="store.isActive">
 				<Vinyl
-					v-if="store.current_track"
-					:isPlaying="!store.is_paused"
-					:cover="store.current_track.album.images[0].url" />
+					v-if="store.currentTrack"
+					:isPlaying="!store.isPaused"
+					:cover="store.currentTrack.cover" />
 			</template>
 		</div>
 		<div
@@ -38,13 +47,13 @@ const pressedForward = ref(false);
 				<BackwardIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
 			</VinylPlayerButton>
 			<VinylPlayerButton
-				:pressed="store.is_paused"
-				@click="store.is_paused ? void 0 : player.togglePlay()">
+				:pressed="store.isPaused"
+				@click="store.isPaused ? void 0 : player.togglePlay()">
 				<PauseIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
 			</VinylPlayerButton>
 			<VinylPlayerButton
-				:pressed="!store.is_paused"
-				@click="store.is_paused ? player.togglePlay() : void 0">
+				:pressed="!store.isPaused"
+				@click="store.isPaused ? player.togglePlay() : void 0">
 				<PlayIcon class="h-[3dvh] w-[3dvh] text-neutral-300" />
 			</VinylPlayerButton>
 			<VinylPlayerButton
@@ -56,18 +65,3 @@ const pressedForward = ref(false);
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	name: "VinylPlayer",
-	props: {
-		player: {
-			type: Object,
-		},
-		store: {
-			type: Object,
-			required: true,
-		},
-	},
-};
-</script>

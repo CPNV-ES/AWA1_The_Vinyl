@@ -1,40 +1,49 @@
-import { ref } from "vue";
 import { defineStore } from "pinia";
+import { Song } from "../lib/Song";
 
-export const useSpotifyStore = defineStore("spotify", () => {
-	const is_active = ref(false);
-	const is_paused = ref(false);
-	const player = ref({});
-	const current_track = ref({});
-    const device_id = ref("");
-
-	const setActive = (newValue) => {
-		is_active.value = newValue;
-	};
-	const setPaused = (newValue) => {
-		is_paused.value = newValue;
-	};
-	const setPlayer = (newValue) => {
-		player.value = newValue;
-	};
-	const setTrack = (newValue) => {
-		current_track.value = newValue;
-	};
-
-    const setDeviceId = (newValue) => {
-        device_id.value = newValue;
-    }
-
-	return {
-		is_active,
-		is_paused,
-		player,
-		current_track,
-        device_id,
-		setActive,
-		setPaused,
-		setPlayer,
-		setTrack,
-        setDeviceId,
-	};
+export const useSpotifyStore = defineStore("spotify", {
+	state: () => ({
+		isActive: false,
+		isPaused: false,
+		player: {},
+		currentTrack: {},
+		deviceId: "",
+		queue: [],
+		preview: null,
+	}),
+	actions: {
+		setActive(newValue) {
+			this.isActive = newValue;
+		},
+		setPaused(newValue) {
+			this.isPaused = newValue;
+		},
+		setPlayer(newValue) {
+			this.player = newValue;
+		},
+		setDeviceId(newValue) {
+			this.deviceId = newValue;
+		},
+		setTrack(newValue) {
+			this.currentTrack = new Song(
+				newValue.name,
+				newValue.artists[0].name,
+				newValue.album.images[0].url,
+				newValue.uri
+			);
+			if (newValue.uri === this.queue[0]?.uri) {
+				this.queue.shift();
+				this.preview = null;
+			}
+		},
+		setPreview(newValue) {
+			this.preview = newValue;
+		},
+		addToQueue(track) {
+			this.queue.push(track);
+		},
+		removeFromQueue(track) {
+			this.queue = this.queue.filter((t) => t.uri !== track.uri);
+		},
+	},
 });

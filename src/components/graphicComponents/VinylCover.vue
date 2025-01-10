@@ -1,6 +1,5 @@
 <script setup>
 defineProps({
-	name: "VinylCover",
 	cover: {
 		type: String,
 		required: true,
