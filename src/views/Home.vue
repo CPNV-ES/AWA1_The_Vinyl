@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<nav class="justify-between flex gap-4">
+	<nav class="justify-between flex gap-4 z-50">
 		<SearchBar @onPick:song="SpotifyQueue.addSongToQueue($event)" />
 		<button
 			@click="SpotifyAuthentication.logout()"
@@ -33,7 +33,7 @@ onMounted(() => {
 			<b>Logout</b>
 		</button>
 	</nav>
-	<div class="grow w-full flex flex-col lg:flex-row perspective-1600">
+	<div class="grow w-full flex flex-col lg:flex-row perspective-1600 z-0">
 		<section
 			class="flex justify-center items-center h-full px-[5dvh] relative w-full lg:w-[50dvw]">
 			<h1
@@ -51,7 +51,7 @@ onMounted(() => {
 				</div>
 			</template>
 		</section>
-		<section class="flex h-full relative items-center w-full lg:w-[50dvw] px-[5dvh]">
+		<section class="flex h-full relative items-center w-full lg:w-[50dvw] lg:px-[5dvh]">
 			<h1 class="absolute top-0 text-2xl font-pacifico uppercase font-bold lg:left-[2dvh]">
 				Next songs
 			</h1>
