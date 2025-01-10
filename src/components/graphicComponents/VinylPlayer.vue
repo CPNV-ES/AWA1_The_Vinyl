@@ -8,9 +8,18 @@ import {
 	PlayIcon,
 	PauseIcon,
 } from "@heroicons/vue/24/solid";
+import { useSpotifyStore } from "../../stores/spotify";
 
 const pressedBackward = ref(false);
 const pressedForward = ref(false);
+
+const store = useSpotifyStore();
+
+defineProps({
+	player: {
+		type: Object,
+	}
+});
 </script>
 
 <template>
@@ -22,7 +31,7 @@ const pressedForward = ref(false);
 				<Vinyl
 					v-if="store.current_track"
 					:isPlaying="!store.is_paused"
-					:cover="store.current_track.album.images[0].url" />
+					:cover="store.current_track.cover" />
 			</template>
 		</div>
 		<div
@@ -56,18 +65,3 @@ const pressedForward = ref(false);
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	name: "VinylPlayer",
-	props: {
-		player: {
-			type: Object,
-		},
-		store: {
-			type: Object,
-			required: true,
-		},
-	},
-};
-</script>

@@ -1,28 +1,22 @@
 <script setup>
-import { ref, computed, defineProps, watch } from "vue";
+import { ref, computed, watch } from "vue";
 import VinylCover from "./VinylCover.vue";
 import SongPreview from "../SongPreview.vue";
 import { onMounted } from "vue";
+import { useSpotifyStore } from "../../stores/spotify";
 
-const props = defineProps({
-	queue: {
-		type: Array,
-		required: true,
-		default: () => [],
-	},
-});
+const store = useSpotifyStore();
 
-const preview = ref({});
 const visibleCoverCount = 15;
 const visibleCoverStartIndex = ref(0);
 
 var visibleCovers = [];
 
 watch(
-	() => props.queue,
+	() => store.queue,
 	(newQueue) => {
 		visibleCovers = computed(() => {
-			return props.queue.slice(
+			return store.queue.slice(
 				visibleCoverStartIndex.value,
 				visibleCoverStartIndex.value + visibleCoverCount
 			);
@@ -32,7 +26,7 @@ watch(
 );
 
 function moveCoversRight() {
-	if (visibleCoverStartIndex.value + visibleCoverCount < props.queue.length) {
+	if (visibleCoverStartIndex.value + visibleCoverCount < store.queue.length) {
 		visibleCoverStartIndex.value++;
 	}
 }
@@ -54,27 +48,25 @@ onMounted(() => {
 });
 </script>
 <template>
-	<template v-if="!queue">loading...</template>
-	<template v-else-if="!queue.length">empty</template>
-	<template v-else>
+	<template v-if="store.queue.length">
 		<div class="flex flex-col w-full h-full relative">
 			<div class="h-[15dvh] w-[15dvh] absolute top-20 left-[5dvh]">
-				<SongPreview :song="preview" />
+				<SongPreview v-if="store.preview" :song="store.preview" />
 			</div>
 			<div
 				class="flex h-full items-center flex-grow gap-1 transform pt-[15dvh] pl-[5dvh]">
 				<VinylCover
-					@mouseover="preview = album"
+					@mouseover="store.setPreview(album)"
 					v-for="(album, index) in visibleCovers"
 					:key="album.id"
 					:zIndex="index > visibleCoverCount / 2 ? -index : index"
 					:cover="album.cover"
-					:isPreviewed="preview === album"
+					:isPreviewed="store.preview === album"
 					:translucent="
 						(visibleCoverStartIndex > 0 && index == 0) ||
 						(index == visibleCoverCount - 1 &&
 							visibleCoverStartIndex <
-								queue.length - visibleCoverCount)
+								store.queue.length - visibleCoverCount)
 					" />
 			</div>
 		</div>
