@@ -12,6 +12,7 @@ const songs = ref([]);
 let searchDelay = null;
 
 const search = async (event) => {
+	songs.value = [];
 	clearTimeout(searchDelay);
 
 	searchDelay = setTimeout(async () => {
