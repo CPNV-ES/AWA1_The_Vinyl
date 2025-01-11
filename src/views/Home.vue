@@ -26,28 +26,27 @@ onMounted(() => {
 <template>
 	<nav class="justify-between flex gap-4 z-50">
 		<SearchBar @onPick:song="SpotifyQueue.addSongToQueue($event)" />
-		<button
-			@click="SpotifyAuthentication.logout()"
-			name="logout"
-			class="button-spotify px-3 py-1">
+		<button @click="SpotifyAuthentication.logout()" name="logout" class="button-spotify px-3 py-1">
 			<b>Logout</b>
 		</button>
 	</nav>
 	<div class="grow w-full flex flex-col lg:flex-row perspective-1600 z-0">
-		<section
-			class="flex justify-center items-center h-full px-[5dvh] relative w-full lg:w-[50dvw]">
-			<h1
-				class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">
+		<section class="flex justify-center items-center h-full px-[5dvh] relative w-full lg:w-[50dvw]">
+			<h1 class="absolute top-0 left-[2dvh] text-2xl font-pacifico uppercase font-bold">
 				Current song
 			</h1>
 			<template v-if="store.isActive">
 				<div v-if="isWideScreen" class="h-[15dvh] w-[15dvh] absolute top-20 left-[10dvh]">
-					<SongPreview
-						v-if="store.currentTrack"
-						:song="store.currentTrack" />
+					<SongPreview v-if="store.currentTrack" :song="store.currentTrack" />
 				</div>
 				<div class="absolute -translate-y-[15dvh] lg:block lg:translate-y-0">
-				<VinylPlayer :player="spotifyPlayer" />
+					<VinylPlayer :player="spotifyPlayer" />
+					<p class="w-full flex flex-col text-nowrap items-center">
+						<span v-if="store.currentTrack" class="font-bold text-md w-fit">{{
+							store.currentTrack.title }}</span>
+						<span v-if="store.currentTrack" class="font-semibold w-fit text-neutral-700 text-sm">{{
+							store.currentTrack.artist }}</span>
+					</p>
 				</div>
 			</template>
 		</section>
