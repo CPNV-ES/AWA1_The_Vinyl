@@ -23,7 +23,7 @@ defineProps({
 </script>
 
 <template>
-	<div id="player" class="relative">
+	<div id="player" class="relative scale-75 lg:scale-100">
 		<div
 			id="player-top"
 			class="bg-orange-900 h-[50dvh] w-[50dvh] flex justify-center items-center origin-bottom transform rotate-x-60 overflow-hidden">

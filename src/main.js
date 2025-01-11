@@ -6,6 +6,7 @@ import { createPinia } from "pinia";
 import { gsap } from "gsap";
 
 gsap.registerPlugin(TextPlugin);
+gsap.registerPlugin(Flip) 
 
 const app = createApp(App);
 const pinia = createPinia();
