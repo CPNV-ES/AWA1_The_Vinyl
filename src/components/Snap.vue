@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { gsap } from "gsap";
 
+const animation = { duration: 1, ease: "power1.inOut" };
 const slides = [
   "#FFAA00",
   "#AA00FF",
@@ -24,7 +25,7 @@ onMounted(() => {
   const stackCurrent = document.getElementById("stack-current");
   const stackSeen = document.getElementById("stack-seen");
   const btnNextPreview = document.getElementById("btn-next-preview");
-
+  const btnPreviousPreview = document.getElementById("btn-previous-preview");
 
   for (let i = 0; i < slides.length; i++) {
     const slideElement = createSlide(slides[i]);
@@ -36,20 +37,41 @@ onMounted(() => {
     const seen = stackCurrent.firstChild;
     if (seen) {
       const stateSeen = Flip.getState(seen);
+      seen.classList.toggle("brightness-50");
       seen.style.zIndex = seen.style.zIndex * -1;
       stackSeen.appendChild(seen);
-      Flip.from(stateSeen, { duration: 1, ease: "power1.inOut" });
+      Flip.from(stateSeen, animation);
     }
 
     const current = stackToSee.firstChild;
     if (current) {
       const stateCurrent = Flip.getState(current);
-      current.classList.remove("brightness-50");
+      current.classList.toggle("brightness-50");
       stackCurrent.appendChild(current);
-      Flip.from(stateCurrent, { duration: 1, ease: "power1.inOut" });
+      Flip.from(stateCurrent, animation);
     }
   };
 
+  const movePrevious = () => {
+    const toSee = stackCurrent.firstChild;
+    if (toSee) {
+      const stateToSee = Flip.getState(toSee);
+      toSee.classList.toggle("brightness-50");
+      stackToSee.prepend(toSee);
+      Flip.from(stateToSee, animation);
+    }
+
+    const current = stackSeen.lastChild;
+    if (current) {
+      const stateCurrent = Flip.getState(current);
+      current.classList.toggle("brightness-50");
+      current.style.zIndex = current.style.zIndex * -1;
+      stackCurrent.append(current);
+      Flip.from(stateCurrent, animation);
+    }
+  };
+
+  btnPreviousPreview.addEventListener("click", movePrevious);
   btnNextPreview.addEventListener("click", moveNext);
 });
 </script>
@@ -59,10 +81,12 @@ onMounted(() => {
 <template>
   <section class="carrousel w-screen h-[30dvh] bg-red-400 overflow-hidden flex flex-col">
     <div class="flex w-full h-5/6 justify-evenly items-center px-32">
-      <div id="stack-seen" class="h-1/2 aspect-square relative bg-green-600 -z-30"></div>
-      <div id="stack-current" class="h-2/3 aspect-square relative bg-green-600"></div>
-      <div id="stack-toSee" class="h-1/2 aspect-square relative bg-green-600 -z-30 transition-colors"></div>
+      <div id="stack-seen" class="h-1/2 aspect-square relative -z-30"></div>
+      <div id="stack-current" class="h-2/3 aspect-square relative"></div>
+      <div id="stack-toSee" class="h-1/2 aspect-square relative -z-30 transition-colors"></div>
     </div>
+    <button id="btn-previous-preview" class="hover:bg-yellow-300">previous</button>
     <button id="btn-next-preview" class="hover:bg-yellow-300">next</button>
+
   </section>
 </template>
