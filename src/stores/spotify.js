@@ -31,8 +31,9 @@ export const useSpotifyStore = defineStore("spotify", {
 				newValue.album.images[0].url,
 				newValue.uri
 			);
+
 			if (newValue.uri === this.queue[0]?.uri) {
-				this.queue.shift();
+				this.removeFromQueue(newValue);
 				this.preview = null;
 			}
 		},
@@ -43,7 +44,10 @@ export const useSpotifyStore = defineStore("spotify", {
 			this.queue.push(track);
 		},
 		removeFromQueue(track) {
-			this.queue = this.queue.filter((t) => t.uri !== track.uri);
+			let found = false;
+			this.queue = this.queue.filter(
+				(t) => t.uri !== track.uri || found || !(found = true)
+			);
 		},
 	},
 });
