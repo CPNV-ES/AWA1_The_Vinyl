@@ -4,13 +4,13 @@ import { useSpotifyStore } from "../stores/spotify";
 import { ForwardIcon, BackwardIcon } from "@heroicons/vue/24/solid";
 
 const animation = { duration: 1, ease: "power1.inOut" };
-
 const store = useSpotifyStore();
 const currentPreview = ref(0);
 
-const createSlide = (slide) => {
+// Create a preview 
+const createPreview = (preview) => {
   const imgElement = document.createElement("img");
-  imgElement.src = slide.cover;
+  imgElement.src = preview.cover;
   imgElement.alt = "aaa";
   imgElement.classList.add("h-full", "w-full", "absolute", "brightness-50", "object-cover");
   return imgElement;
@@ -23,6 +23,7 @@ onMounted(() => {
   const btnNextPreview = document.getElementById("btn-next-preview");
   const btnPreviousPreview = document.getElementById("btn-previous-preview");
 
+  // Observe the changes in the queue
   watch(
     () => store.queue,
     () => {
@@ -31,6 +32,7 @@ onMounted(() => {
     { deep: true }
   );
 
+  // Generate/Reset the previews
   const generatePreviews = () => {
     currentPreview.value = 0;
     stackToSee.innerHTML = "";
@@ -38,18 +40,19 @@ onMounted(() => {
     stackSeen.innerHTML = "";
 
     for (let i = 0; i < store.queue.length; i++) {
-      const slideElement = createSlide(store.queue[i]);
-      slideElement.style.zIndex = store.queue.length - i;
+      const previewElement = createPreview(store.queue[i]);
+      previewElement.style.zIndex = store.queue.length - i;
 
       if (i === 0) {
-        stackCurrent.appendChild(slideElement);
-        slideElement.classList.toggle("brightness-50");
+        stackCurrent.appendChild(previewElement);
+        previewElement.classList.toggle("brightness-50");
       } else {
-        stackToSee.appendChild(slideElement);
+        stackToSee.appendChild(previewElement);
       }
     }
   };
 
+  // Switch to the next preview
   const moveNext = () => {
     if (currentPreview.value === store.queue.length - 1) return;
     currentPreview.value = currentPreview.value + 1;
@@ -71,6 +74,7 @@ onMounted(() => {
     }
   };
 
+  // Switch to the previous preview
   const movePrevious = () => {
     if (currentPreview.value === 0) return;
     currentPreview.value = currentPreview.value - 1;
@@ -96,7 +100,6 @@ onMounted(() => {
   btnNextPreview.addEventListener("click", moveNext);
 });
 </script>
-
 
 <template>
   <section class="carrousel w-screen h-[30dvh] overflow-hidden flex flex-col">
