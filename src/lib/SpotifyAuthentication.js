@@ -15,8 +15,6 @@ class SpotifyAuthentication {
 			import.meta.env.VITE_SPOTIFY_CLIENT_ID,
 			import.meta.env.VITE_REDIRECT_TARGET,
 			[
-				"user-read-private",
-				"user-read-email",
 				"streaming",
 				"user-modify-playback-state",
 				"user-read-playback-state",
