@@ -1,14 +1,11 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import {useSpotifyStore} from "../stores/spotify";
+import { useSpotifyStore } from "../stores/spotify";
+import { ForwardIcon, BackwardIcon } from "@heroicons/vue/24/solid";
 
 const animation = { duration: 1, ease: "power1.inOut" };
 
 const store = useSpotifyStore();
-
-// add a new 
-
-
 const currentPreview = ref(0);
 
 const createSlide = (slide) => {
@@ -43,7 +40,7 @@ onMounted(() => {
     for (let i = 0; i < store.queue.length; i++) {
       const slideElement = createSlide(store.queue[i]);
       slideElement.style.zIndex = store.queue.length - i;
-      
+
       if (i === 0) {
         stackCurrent.appendChild(slideElement);
         slideElement.classList.toggle("brightness-50");
@@ -109,12 +106,14 @@ onMounted(() => {
       <div id="stack-toSee" class="w-[17dvw] aspect-square relative -z-30 transition-colors"></div>
     </div>
     <div class="w-full flex items-center h-1/6">
-      <button id="btn-previous-preview" class="flex-1"><</button>
-      <p class="w-[60dvw] flex flex-col text-nowrap items-center">
-        <span v-if="store.queue[currentPreview]" class="font-bold text-md w-fit">{{ store.queue[currentPreview].title }}</span>
-        <span v-if="store.queue[currentPreview]" class="font-semibold w-fit text-neutral-700 text-sm">{{store.queue[currentPreview].artist}}</span>
-      </p>
-      <button id="btn-next-preview" class="flex-1">></button>
+      <button id="btn-previous-preview" class="flex-1 flex justify-center"><BackwardIcon class="w-6 h-6" /></button>
+          <p class="w-[60dvw] flex flex-col text-nowrap items-center">
+            <span v-if="store.queue[currentPreview]" class="font-bold text-md w-fit">{{
+              store.queue[currentPreview].title }}</span>
+            <span v-if="store.queue[currentPreview]"
+              class="font-semibold w-fit text-neutral-700 text-sm">{{ store.queue[currentPreview].artist }}</span>
+          </p>
+          <button id="btn-next-preview" class="flex-1 flex justify-center"><ForwardIcon class="w-6 h-6" /></button>
     </div>
   </section>
 </template>
