@@ -52,7 +52,7 @@ onMounted(() => {
 			</template>
 		</section>
 		<section class="flex h-full relative items-center w-full lg:w-[50dvw] lg:px-[5dvh]">
-			<h1 class="absolute top-0 text-2xl font-pacifico uppercase font-bold lg:left-[2dvh]">
+			<h1 class="absolute top-0 text-2xl font-pacifico uppercase font-bold left-[2dvh]">
 				Next songs
 			</h1>
 
