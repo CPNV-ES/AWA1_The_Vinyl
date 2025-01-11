@@ -3,7 +3,7 @@ import VinylPlayer from "../components/graphicComponents/VinylPlayer.vue";
 import SearchBar from "../components/SearchBar.vue";
 import VinylCoverQueue from "../components/graphicComponents/VinylCoverQueue.vue";
 import SongPreview from "../components/SongPreview.vue";
-// import Snap from "../components/Snap.vue";
+import Snap from "../components/Snap.vue";
 
 import { onMounted, computed } from "vue";
 import { useSpotifyStore } from "../stores/spotify";
@@ -57,7 +57,7 @@ onMounted(() => {
 			</h1>
 
 			<VinylCoverQueue v-if="isWideScreen" :queue="store.queue" />
-			<!-- <Snap v-else :queue="store.queue" /> -->
+			<Snap v-else :queue="store.queue" />
 		</section>
 	</div>
 </template>
